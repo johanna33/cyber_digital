@@ -1,0 +1,365 @@
+unit Unit2Cliente;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ComCtrls, StdCtrls, RzLabel, Mask, RzEdit, RzButton, DB,
+  DBAccess, MyAccess, MemDS, Grids, DBGrids, CRGrid, frxClass, frxDBSet;
+
+type
+  TfCliente = class(TForm)
+    pCliente: TPageControl;
+    tsCgen: TTabSheet;
+    tsCemp: TTabSheet;
+    bbNew: TRzBitBtn;
+    bbGra: TRzBitBtn;
+    bbRep: TRzBitBtn;
+    bbmod: TRzBitBtn;
+    bbBo: TRzBitBtn;
+    ecat: TRzEdit;
+    RzLabel9: TRzLabel;
+    econ: TRzEdit;
+    RzLabel8: TRzLabel;
+    eRnc: TRzEdit;
+    RzLabel6: TRzLabel;
+    eDir: TRzEdit;
+    RzLabel5: TRzLabel;
+    eTel: TRzEdit;
+    RzLabel4: TRzLabel;
+    eTel1: TRzEdit;
+    eNom: TRzEdit;
+    RzLabel3: TRzLabel;
+    eCod: TRzEdit;
+    RzLabel12: TRzLabel;
+    RzLabel11: TRzLabel;
+    RzLabel1: TRzLabel;
+    RzLabel2: TRzLabel;
+    ecodE: TRzEdit;
+    enome: TRzEdit;
+    RzLabel7: TRzLabel;
+    RzLabel10: TRzLabel;
+    etelE: TRzEdit;
+    etel1E: TRzEdit;
+    edire: TRzEdit;
+    RzLabel13: TRzLabel;
+    RzLabel14: TRzLabel;
+    erncE: TRzEdit;
+    econE: TRzEdit;
+    RzLabel15: TRzLabel;
+    RzLabel16: TRzLabel;
+    ecatE: TRzEdit;
+    bbBoE: TRzBitBtn;
+    bbMode: TRzBitBtn;
+    bbRepE: TRzBitBtn;
+    bbGrae: TRzBitBtn;
+    bbnewE: TRzBitBtn;
+    qryBoC: TMyQuery;
+    qryGraC: TMyQuery;
+    qryModC: TMyQuery;
+    dsCliente: TMyDataSource;
+    qrycliente: TMyQuery;
+    qryclientecod: TIntegerField;
+    qryclientenombre: TStringField;
+    qryclientetel: TStringField;
+    qryclientetel1: TStringField;
+    qryclienternc: TStringField;
+    qryclientedirec: TStringField;
+    qryclientecontac: TStringField;
+    qryclientecat: TIntegerField;
+    dsclienteE: TMyDataSource;
+    qryClienteE: TMyQuery;
+    qryGraCE: TMyQuery;
+    qryModCE: TMyQuery;
+    qryBoCE: TMyQuery;
+    qryClienteEcod: TIntegerField;
+    qryClienteEnombre: TStringField;
+    qryClienteEcat: TIntegerField;
+    qryClienteEtel: TStringField;
+    qryClienteEtel1: TStringField;
+    qryClienteErnc: TStringField;
+    qryClienteEdirec: TStringField;
+    qryClienteEcontac: TStringField;
+    gridC: TCRDBGrid;
+    gridCE: TCRDBGrid;
+    qryRepc: TMyQuery;
+    DSrepC: TfrxDBDataset;
+    frxListadoC: TfrxReport;
+    qryRepccod: TIntegerField;
+    qryRepcnombre: TStringField;
+    qryRepctel: TStringField;
+    qryRepctel1: TStringField;
+    qryRepcrnc: TStringField;
+    qryRepcdirec: TStringField;
+    qryRepccontac: TStringField;
+    qryRepccat: TIntegerField;
+    frxListadoCE: TfrxReport;
+    DSrepCE: TfrxDBDataset;
+    qryRepcE: TMyQuery;
+    qryRepcEcod: TIntegerField;
+    qryRepcEnombre: TStringField;
+    qryRepcEcat: TIntegerField;
+    qryRepcEtel: TStringField;
+    qryRepcEtel1: TStringField;
+    qryRepcErnc: TStringField;
+    qryRepcEdirec: TStringField;
+    qryRepcEcontac: TStringField;
+    procedure bbNewClick(Sender: TObject);
+    procedure bbnewEClick(Sender: TObject);
+    procedure bbGraClick(Sender: TObject);
+    procedure bbGraeClick(Sender: TObject);
+    procedure bbmodClick(Sender: TObject);
+    procedure bbModeClick(Sender: TObject);
+    procedure bbBoClick(Sender: TObject);
+    procedure bbBoEClick(Sender: TObject);
+    procedure gridCCellClick(Column: TColumn);
+    procedure gridCECellClick(Column: TColumn);
+    procedure bbRepClick(Sender: TObject);
+    procedure bbRepEClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure tsCempShow(Sender: TObject);
+    procedure tsCgenShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fCliente: TfCliente;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfCliente.bbNewClick(Sender: TObject);
+begin
+//limpia
+ecod.Clear;
+enom.clear;
+etel.Clear;
+etel1.clear;
+ernc.clear;
+edir.clear;
+econ.Clear;
+ecat.clear;
+
+qrycliente.Close;
+qrycliente.Open;
+qryRepc.Close;
+qryRepc.open;
+
+end;
+
+procedure TfCliente.bbnewEClick(Sender: TObject);
+begin
+//limpia
+ecodE.Clear;
+enomE.clear;
+etelE.Clear;
+etel1E.clear;
+erncE.clear;
+edirE.clear;
+econE.Clear;
+ecatE.clear;
+
+qryclienteE.Close;
+qryclienteE.Open;
+qryRepcE.Close;
+qryRepcE.open;
+
+end;
+
+procedure TfCliente.bbGraClick(Sender: TObject);
+begin
+//verificar que las entradas no esten vacias
+if trim(enom.Text)= '' then
+  begin
+  showmessage ('debe ingresar el nombre');
+  Exit;
+  end;
+
+//aqui graba los datos  y limpia
+qryGraC.ParamByName('vnom').AsString:= enom.Text ;
+qryGraC.ParamByName('vtel').AsString:= etel.Text;
+qryGraC.ParamByName('vtel1').AsString:= etel1.Text;
+qryGraC.ParamByName('vrnc').AsString:= ernc.Text ;
+qryGraC.ParamByName('vdir').AsString:= edir.Text;
+qryGraC.ParamByName('vcon').AsString:= econ.Text;
+qryGraC.ParamByName('vcat').AsString:= ecat.Text ;
+qryGraC.Execute;
+bbNew.Click;
+
+end;
+
+procedure TfCliente.bbGraeClick(Sender: TObject);
+begin
+//verificar que las entradas no esten vacias
+if trim(enomE.Text)= '' then
+  begin
+  showmessage ('debe ingresar el nombre');
+  Exit;
+  end;
+
+//aqui graba los datos  y limpia
+qryGraCE.ParamByName('vnom').AsString:= enomE.Text ;
+qryGraCE.ParamByName('vtel').AsString:= etelE.Text;
+qryGraCE.ParamByName('vtel1').AsString:= etel1E.Text;
+qryGraCE.ParamByName('vrnc').AsString:= erncE.Text ;
+qryGraCE.ParamByName('vdir').AsString:= edirE.Text;
+qryGraCE.ParamByName('vcon').AsString:= econE.Text;
+qryGraCE.ParamByName('vcat').AsString:= ecatE.Text ;
+qryGraCE.Execute;
+bbNewE.Click;
+end;
+
+procedure TfCliente.bbmodClick(Sender: TObject);
+begin
+//verificar que las entradas no esten vacias
+if trim(ecod.Text)= '' then
+  begin
+  showmessage ('no hay datos para modificar');
+  Exit;
+  end;
+
+if trim(enom.Text)= '' then
+  begin
+  showmessage ('debe ingresar el nombre');
+  Exit;
+  end;
+
+//aqui modifica los datos  y limpia
+qrymodC.ParamByName('vnom').AsString:= enom.Text ;
+qrymodC.ParamByName('vtel').AsString:= etel.Text;
+qrymodC.ParamByName('vtel1').AsString:= etel1.Text;
+qrymodC.ParamByName('vrnc').AsString:= ernc.Text ;
+qrymodC.ParamByName('vdir').AsString:= edir.Text;
+qrymodC.ParamByName('vcon').AsString:= econ.Text;
+qrymodC.ParamByName('vcat').AsString:= ecat.Text ;
+qrymodC.ParamByName('v1cod').AsString:= ecod.Text ;
+qrymodC.Execute;
+bbNew.Click;
+
+end;
+
+procedure TfCliente.bbModeClick(Sender: TObject);
+begin
+//verificar que las entradas no esten vacias
+if trim(ecodE.Text)= '' then
+  begin
+  showmessage ('no hay datos para modificar');
+  Exit;
+  end;
+
+if trim(enomE.Text)= '' then
+  begin
+  showmessage ('debe ingresar el nombre');
+  Exit;
+  end;
+
+//aqui modifica los datos  y limpia
+qrymodCE.ParamByName('vnom').AsString:= enomE.Text ;
+qrymodCE.ParamByName('vtel').AsString:= etelE.Text;
+qrymodCE.ParamByName('vtel1').AsString:= etel1E.Text;
+qrymodCE.ParamByName('vrnc').AsString:= erncE.Text ;
+qrymodCE.ParamByName('vdir').AsString:= edirE.Text;
+qrymodCE.ParamByName('vcon').AsString:= econE.Text;
+qrymodCE.ParamByName('vcat').AsString:= ecatE.Text ;
+qrymodCE.ParamByName('v1cod').AsString:= ecodE.Text ;
+qrymodCE.Execute;
+bbNewE.Click;
+end;
+
+procedure TfCliente.bbBoClick(Sender: TObject);
+begin
+//si esta vacio que salga
+if trim(ecod.Text)= '' then
+  begin
+  showmessage ('No hay datos para Borrar');
+  Exit;
+  end;
+
+ //aqui borra ese registro
+qryBoC.ParamByName('bar').AsString:= ecod.Text;
+qryBoC.Execute;
+bbNew.Click;
+
+end;
+
+procedure TfCliente.bbBoEClick(Sender: TObject);
+begin
+//si esta vacio que salga
+if trim(ecodE.Text)= '' then
+  begin
+  showmessage ('No hay datos para Borrar');
+  Exit;
+  end;
+
+ //aqui borra ese registro
+qryBoCE.ParamByName('bar').AsString:= ecodE.Text;
+qryBoCE.Execute;
+bbNewE.Click;
+end;
+
+procedure TfCliente.gridCCellClick(Column: TColumn);
+begin
+//despliega
+ecod.text:= qryClientecod.AsString;
+enom.text:= qryclientenombre.AsString;
+etel.text:= qryclientetel.asString;
+etel1.text:= qryclientetel1.asstring;
+ernc.text:= qryclienternc.asstring;
+edir.text:= qryclientedirec.asstring;
+econ.text:= qryclientecontac.asstring;
+ecat.text:= qryclientecat.asstring;
+
+end;
+
+procedure TfCliente.gridCECellClick(Column: TColumn);
+begin
+//despliega
+ecodE.text:= qryClienteEcod.AsString;
+enomE.text:= qryclienteEnombre.AsString;
+etelE.text:= qryclienteEtel.asString;
+etel1E.text:= qryclienteEtel1.asstring;
+erncE.text:= qryclienteErnc.asstring;
+edirE.text:= qryclienteEdirec.asstring;
+econE.text:= qryclienteEcontac.asstring;
+ecatE.text:= qryclienteEcat.asstring;
+end;
+
+procedure TfCliente.bbRepClick(Sender: TObject);
+begin
+//muestra el listado
+frxListadoC.showreport;
+
+end;
+
+procedure TfCliente.bbRepEClick(Sender: TObject);
+begin
+//muestra el listado
+frxListadoCE.showreport;
+end;
+
+procedure TfCliente.FormShow(Sender: TObject);
+begin
+bbNew.click;
+bbNewE.click;
+tsCgen.Show;
+end;
+
+procedure TfCliente.tsCempShow(Sender: TObject);
+begin
+//esto marca el resalte cuando le hace click
+tsCgen.highlighted:= false;
+tsCemp.highlighted:= true;
+end;
+
+procedure TfCliente.tsCgenShow(Sender: TObject);
+begin
+//esto marca el resalte cuando le hace click
+tsCgen.highlighted:= true;
+tsCemp.highlighted:= false;
+end;
+
+end.
